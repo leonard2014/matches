@@ -1,7 +1,8 @@
-package com.leonard.matches
+package com.leonard.matches.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.leonard.matches.R
 
 class MainActivity : AppCompatActivity() {
 
