@@ -1,6 +1,6 @@
 package com.leonard.matches.di
 
-import application.App
+import com.leonard.matches.application.App
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector

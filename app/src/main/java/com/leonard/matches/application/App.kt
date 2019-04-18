@@ -1,4 +1,4 @@
-package application
+package com.leonard.matches.application
 
 import android.app.Activity
 import android.app.Application
