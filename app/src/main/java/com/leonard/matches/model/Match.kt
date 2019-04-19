@@ -2,7 +2,7 @@ package com.leonard.matches.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Matches(
+data class Match(
     @SerializedName("match_id")
     val matchId: String,
     @SerializedName("stat_type")

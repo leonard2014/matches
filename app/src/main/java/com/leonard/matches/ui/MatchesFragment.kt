@@ -1,5 +1,6 @@
 package com.leonard.matches.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,23 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 
 import com.leonard.matches.R
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class MatchesFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: MatchesViewModelFactory
+
+    private lateinit var viewModel: MatchesViewModel
+
     companion object {
         fun newInstance() = MatchesFragment()
     }
 
-    private lateinit var viewModel: MatchesViewModel
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +36,7 @@ class MatchesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MatchesViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MatchesViewModel::class.java)
     }
 
 }
