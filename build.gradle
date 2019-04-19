@@ -6,6 +6,7 @@ buildscript {
         supportLibrary = '1.0.0'
         dagger = '2.22.1'
         retrofit = '2.5.0'
+        groupie = '2.3.0'
     }
 
     repositories {
