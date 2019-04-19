@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.kennyc.view.MultiStateView
 
 import com.leonard.matches.R
 import com.leonard.matches.model.Match
-import com.leonard.matches.ui.viewitem.SectionItem
+import com.leonard.matches.ui.viewitem.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import dagger.android.support.AndroidSupportInjection
@@ -27,6 +27,9 @@ class MatchesFragment : Fragment() {
     private lateinit var viewModel: MatchesViewModel
 
     private val rvAdapter = GroupAdapter<ViewHolder>()
+        .apply {
+            spanCount = WHOLE_ROW_SPAN_COUNT
+        }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,7 +47,10 @@ class MatchesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(matchList) {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, rvAdapter.spanCount)
+                .apply {
+                    spanSizeLookup = rvAdapter.spanSizeLookup
+                }
             this.adapter = rvAdapter
         }
 
@@ -61,15 +67,14 @@ class MatchesFragment : Fragment() {
                     MultiStateView.VIEW_STATE_CONTENT
             }
 
-            if(state is ViewState.Content) {
+            if (state is ViewState.Content) {
                 populateAdapter(state.matches)
             }
         })
     }
 
     private fun populateAdapter(matches: List<Match>) {
-        matches.forEach {
-            match -> rvAdapter.add(SectionItem(match))
-        }
+        rvAdapter.clear()
+        rvAdapter.addAll(matches.map {MatchSection(it)})
     }
 }

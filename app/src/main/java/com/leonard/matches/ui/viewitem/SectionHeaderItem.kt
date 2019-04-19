@@ -7,7 +7,7 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.matches_section.view.*
 
 
-class SectionItem(private val match: Match) : Item() {
+class SectionHeaderItem(private val match: Match) : Item() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.statsType.text = match.statType
     }
