@@ -17,6 +17,7 @@ import com.leonard.matches.ui.viewitem.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.error_view.*
 import kotlinx.android.synthetic.main.matches_fragment.*
 import javax.inject.Inject
 
@@ -53,6 +54,8 @@ class MatchesFragment : Fragment() {
                 }
             this.adapter = rvAdapter
         }
+
+        retry.setOnClickListener{viewModel.loadMatches()}
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MatchesViewModel::class.java)
         viewModel.viewState.observe(this, Observer { state ->

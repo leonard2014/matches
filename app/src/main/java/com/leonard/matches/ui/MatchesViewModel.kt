@@ -30,7 +30,7 @@ class MatchesViewModel(private val repository: Repository) : ViewModel() {
         loadMatches()
     }
 
-    private fun loadMatches() {
+    fun loadMatches() {
         viewState.postValue(ViewState.Loading)
         disposeBag += repository.matches
             .subscribe(
