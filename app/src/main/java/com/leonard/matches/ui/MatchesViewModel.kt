@@ -9,7 +9,7 @@ import java.lang.IllegalArgumentException
 
 sealed class ViewState {
     object Loading : ViewState()
-    class Error(exception: Throwable) : ViewState()
+    class Error(val exception: Throwable) : ViewState()
     object Empty : ViewState()
     data class Content(val matches: List<Match>) : ViewState()
 }
@@ -24,10 +24,6 @@ class MatchesViewModel(private val repository: Repository) : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         disposeBag.clear()
-    }
-
-    init {
-        loadMatches()
     }
 
     fun loadMatches() {

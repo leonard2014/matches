@@ -74,6 +74,7 @@ class MatchesFragment : Fragment() {
                 populateAdapter(state.matches)
             }
         })
+        viewModel.loadMatches()
     }
 
     private fun populateAdapter(matches: List<Match>) {
