@@ -1,5 +1,6 @@
 package com.leonard.matches.ui
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.leonard.matches.R
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class PlayerFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: PlayerViewModelFactory
 
     companion object {
         fun newInstance(teamId: String, playerId: String) =
@@ -19,6 +24,11 @@ class PlayerFragment : Fragment() {
                     putString(PLAYER_ID, playerId)
                 }
             }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
     }
 
     private lateinit var viewModel: PlayerViewModel
@@ -32,8 +42,7 @@ class PlayerFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(PlayerViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PlayerViewModel::class.java)
     }
 
 }

@@ -6,6 +6,7 @@ import com.leonard.matches.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
 class MatchesViewModel(private val repository: Repository) : ViewModel() {
     sealed class ViewState {
@@ -43,7 +44,8 @@ class MatchesViewModel(private val repository: Repository) : ViewModel() {
     }
 }
 
-class MatchesViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
+class MatchesViewModelFactory
+@Inject constructor(private val repository: Repository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(MatchesViewModel::class.java)) {
             MatchesViewModel(repository) as T
