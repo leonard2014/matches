@@ -8,10 +8,10 @@ class Repository(private val apiService: ApiService) {
             .map { matches ->
                 matches.forEach { match ->
                     match.teamA.topPlayers.forEach { player ->
-                        player.teamId = match.matchId
+                        player.teamId = match.teamA.id
                     }
                     match.teamB.topPlayers.forEach { player ->
-                        player.teamId = match.matchId
+                        player.teamId = match.teamB.id
                     }
                 }
                 matches
