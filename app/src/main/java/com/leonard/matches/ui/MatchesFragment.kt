@@ -1,6 +1,7 @@
 package com.leonard.matches.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,13 @@ class MatchesFragment : Fragment() {
 
     private fun populateAdapter(matches: List<Match>) {
         rvAdapter.clear()
-        rvAdapter.addAll(matches.map {MatchSection(it)})
+        rvAdapter.addAll(
+            matches.map {
+                MatchSection(it) {
+                    startActivity(
+                        Intent(context, PlayerActivity::class.java)
+                    )
+                }
+            })
     }
 }

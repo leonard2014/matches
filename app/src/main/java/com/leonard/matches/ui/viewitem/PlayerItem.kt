@@ -9,7 +9,9 @@ import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.matches_top_player.view.*
 
 
-class PlayerItem(private val player: TopPlayer) : Item() {
+typealias OnPlayerClicked = (player: TopPlayer) -> Unit
+
+class PlayerItem(private val player: TopPlayer, private val onPlayerClicked: OnPlayerClicked) : Item() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         with(viewHolder.itemView) {
             playerShortName.text = player.shortName
@@ -21,6 +23,8 @@ class PlayerItem(private val player: TopPlayer) : Item() {
                 .load(URL)
                 .placeholder(R.drawable.headshot_blank)
                 .into(headshot)
+
+            headshot.setOnClickListener{onPlayerClicked(player)}
         }
     }
 
