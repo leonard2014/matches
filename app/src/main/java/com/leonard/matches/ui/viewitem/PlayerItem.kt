@@ -1,7 +1,9 @@
 package com.leonard.matches.ui.viewitem
 
+import com.bumptech.glide.Glide
 import com.leonard.matches.R
 import com.leonard.matches.model.TopPlayer
+import com.leonard.matches.repository.HEADSHOT_TEMPLATE
 import com.xwray.groupie.kotlinandroidextensions.Item
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import kotlinx.android.synthetic.main.matches_top_player.view.*
@@ -14,6 +16,11 @@ class PlayerItem(private val player: TopPlayer) : Item() {
             playerStats.text = player.statValue.toString()
             playerJumper.text = player.jumperNumber.toString()
             playerPosition.text = player.position
+            val URL = String.format(HEADSHOT_TEMPLATE, player.id)
+            Glide.with(context)
+                .load(URL)
+                .placeholder(R.drawable.headshot_blank)
+                .into(headshot)
         }
     }
 
