@@ -68,9 +68,9 @@ class MatchesViewModelTest {
         viewModel.loadMatches()
 
         assertThat(testObserver.observedValues.size).isEqualTo(3)
-        assertThat(testObserver.observedValues[0]).isEqualTo(ViewState.Loading)
-        assertThat(testObserver.observedValues[1]).isEqualTo(ViewState.Loading)
-        assertThat(testObserver.observedValues[2]).isEqualTo(ViewState.Content(matches))
+        assertThat(testObserver.observedValues[0]).isEqualTo(MatchesViewModel.ViewState.Loading)
+        assertThat(testObserver.observedValues[1]).isEqualTo(MatchesViewModel.ViewState.Loading)
+        assertThat(testObserver.observedValues[2]).isEqualTo(MatchesViewModel.ViewState.Content(matches))
     }
 
     @Test
@@ -83,9 +83,9 @@ class MatchesViewModelTest {
         viewModel.loadMatches()
 
         assertThat(testObserver.observedValues.size).isEqualTo(3)
-        assertThat(testObserver.observedValues[0]).isEqualTo(ViewState.Loading)
-        assertThat(testObserver.observedValues[1]).isEqualTo(ViewState.Loading)
-        assertThat((testObserver.observedValues[2] as ViewState.Error).exception).isEqualTo(error)
+        assertThat(testObserver.observedValues[0]).isEqualTo(MatchesViewModel.ViewState.Loading)
+        assertThat(testObserver.observedValues[1]).isEqualTo(MatchesViewModel.ViewState.Loading)
+        assertThat((testObserver.observedValues[2] as MatchesViewModel.ViewState.Error).exception).isEqualTo(error)
     }
 
     @Test
@@ -98,8 +98,8 @@ class MatchesViewModelTest {
         viewModel.loadMatches()
 
         assertThat(testObserver.observedValues.size).isEqualTo(3)
-        assertThat(testObserver.observedValues[0]).isEqualTo(ViewState.Loading)
-        assertThat(testObserver.observedValues[1]).isEqualTo(ViewState.Loading)
-        assertThat(testObserver.observedValues[2]).isEqualTo(ViewState.Empty)
+        assertThat(testObserver.observedValues[0]).isEqualTo(MatchesViewModel.ViewState.Loading)
+        assertThat(testObserver.observedValues[1]).isEqualTo(MatchesViewModel.ViewState.Loading)
+        assertThat(testObserver.observedValues[2]).isEqualTo(MatchesViewModel.ViewState.Empty)
     }
 }

@@ -7,15 +7,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import java.lang.IllegalArgumentException
 
-sealed class ViewState {
-    object Loading : ViewState()
-    class Error(val exception: Throwable) : ViewState()
-    object Empty : ViewState()
-    data class Content(val matches: List<Match>) : ViewState()
-}
-
-
 class MatchesViewModel(private val repository: Repository) : ViewModel() {
+    sealed class ViewState {
+        object Loading : ViewState()
+        class Error(val exception: Throwable) : ViewState()
+        object Empty : ViewState()
+        data class Content(val matches: List<Match>) : ViewState()
+    }
+
     var viewState = MutableLiveData<ViewState>().apply { value = ViewState.Loading }
         private set
 

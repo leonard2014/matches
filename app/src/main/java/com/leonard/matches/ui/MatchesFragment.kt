@@ -61,17 +61,17 @@ class MatchesFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MatchesViewModel::class.java)
         viewModel.viewState.observe(this, Observer { state ->
             multiStateView.viewState = when (state) {
-                is ViewState.Loading ->
+                is MatchesViewModel.ViewState.Loading ->
                     MultiStateView.VIEW_STATE_LOADING
-                is ViewState.Error ->
+                is MatchesViewModel.ViewState.Error ->
                     MultiStateView.VIEW_STATE_ERROR
-                is ViewState.Empty ->
+                is MatchesViewModel.ViewState.Empty ->
                     MultiStateView.VIEW_STATE_EMPTY
-                is ViewState.Content ->
+                is MatchesViewModel.ViewState.Content ->
                     MultiStateView.VIEW_STATE_CONTENT
             }
 
-            if (state is ViewState.Content) {
+            if (state is MatchesViewModel.ViewState.Content) {
                 populateAdapter(state.matches)
             }
         })
@@ -82,10 +82,10 @@ class MatchesFragment : Fragment() {
         rvAdapter.clear()
         rvAdapter.addAll(
             matches.map {
-                MatchSection(it) {
-                    startActivity(
-                        Intent(context, PlayerActivity::class.java)
-                    )
+                MatchSection(it) { player ->
+                    context?.let { cxt ->
+                        PlayerActivity.startPlayerActivity(cxt, player.teamId, player.id)
+                    }
                 }
             })
     }

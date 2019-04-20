@@ -6,7 +6,7 @@ data class TopPlayer(
     @SerializedName("full_name")
     val fullName: String,
     @SerializedName("id")
-    val id: Int,
+    val id: String,
     @SerializedName("jumper_number")
     val jumperNumber: Int,
     @SerializedName("position")
@@ -14,5 +14,7 @@ data class TopPlayer(
     @SerializedName("short_name")
     val shortName: String,
     @SerializedName("stat_value")
-    val statValue: Int
+    val statValue: Int,
+    @Transient
+    var teamId: String
 )

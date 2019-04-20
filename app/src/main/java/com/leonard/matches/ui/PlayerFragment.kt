@@ -12,7 +12,13 @@ import com.leonard.matches.R
 class PlayerFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PlayerFragment()
+        fun newInstance(teamId: String, playerId: String) =
+            PlayerFragment().apply {
+                arguments = Bundle().apply {
+                    putString(TEAM_ID, teamId)
+                    putString(PLAYER_ID, playerId)
+                }
+            }
     }
 
     private lateinit var viewModel: PlayerViewModel
