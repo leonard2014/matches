@@ -1,8 +1,6 @@
 package com.leonard.matches.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.leonard.matches.model.Match
 import com.leonard.matches.model.Team
 import com.leonard.matches.repository.Repository
@@ -15,19 +13,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnit
 import java.io.IOException
-
-
-class TestObserver<T> : Observer<T> {
-    val observedValues = mutableListOf<T?>()
-
-    override fun onChanged(value: T?) {
-        observedValues.add(value)
-    }
-}
-
-private fun <T> LiveData<T>.testObserver() = TestObserver<T>().also {
-    observeForever(it)
-}
 
 class MatchesViewModelTest {
     @get:Rule
@@ -52,12 +37,12 @@ class MatchesViewModelTest {
             Match(
                 "1", "team1",
                 Team(
-                    "teamA", 2, "team AA", "NewCastle",
-                    arrayListOf()
+                    "teamA", "2", "team AA", "NewCastle",
+                    emptyList()
                 ),
                 Team(
-                    "teamB", 999, "team B", "Brisbane",
-                    arrayListOf()
+                    "teamB", "999", "team B", "Brisbane",
+                    emptyList()
                 )
             )
         )
