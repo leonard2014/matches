@@ -13,6 +13,8 @@ import javax.inject.Singleton
         RepositoryModule::class]
 )
 interface AppComponent : AndroidInjector<App> {
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<App>()
+    @Component.Factory
+    interface Factory {
+        fun appComponent(): AppComponent
+    }
 }
