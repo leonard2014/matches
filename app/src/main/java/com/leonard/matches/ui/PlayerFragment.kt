@@ -82,9 +82,23 @@ class PlayerFragment : Fragment() {
 
     private fun showPlayerDetail(playerDetail: PlayerDetail) {
         fullName.text = playerDetail.fullName
-        with(playerDetail) {
-            stats.text =
-                "$fullName\n$dateOfBirth\n$position"
-        }
+        stats.text = playerDetail.toStatsString()
     }
+
+    private fun PlayerDetail.toStatsString() =
+        "$fullName\n$dateOfBirth\n$position\n${heightCm}Cm\n${weightKg}Kg\n" +
+                "\nLast match stats\n" +
+                kotlin.with(lastMatchStats) {
+                    "erors: ${errors}\n" +
+                            "goals: $goals\n" +
+                            "intercepted: $intercepted\n" +
+                            "intercepts: $intercepted\n" +
+                            "kicks: $kicks\n" +
+                            "points: $points\n" +
+                            "possessions: $possessions\n" +
+                            "runs: $runs\n" +
+                            "run meters: ${runMetres}m" +
+                            "tackles: $tackles\n" +
+                            "fantasy points: $fantasyPoints"
+                }.toString()
 }
