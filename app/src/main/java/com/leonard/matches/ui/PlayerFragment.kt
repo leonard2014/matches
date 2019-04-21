@@ -103,8 +103,18 @@ class PlayerFragment : Fragment() {
                             "points: $points\n" +
                             "possessions: $possessions\n" +
                             "runs: $runs\n" +
-                            "run meters: ${runMetres}m" +
+                            "run meters: ${runMetres}m\n" +
                             "tackles: $tackles\n" +
-                            "fantasy points: $fantasyPoints"
+                            "fantasy points: $fantasyPoints\n" +
+                            "tries: $tries\n" +
+                            "mins played: $minsPlayed\n" +
+                            "attacking kicks: $attackingKicks\n" +
+                            "bombs caught: $bombsCaught\n" +
+                            "bombs_dropped: $bombsDropped\n" +
+                            "charged down: $chargedDown\n" +
+                            "charges down: $chargesDown\n" +
+                            "drop outs: $dropOuts\n" +
+                            "dummy half runs: $dummyHalfRuns\n" +
+                            "effective offloads: $effectiveOffloads"
                 }.toString()
 }
