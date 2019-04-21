@@ -81,7 +81,9 @@ class PlayerFragment : Fragment() {
             }
         })
 
-        viewModel.loadPlayerDetail(teamId, playerId)
+        if(savedInstanceState == null) {
+            viewModel.loadPlayerDetail(teamId, playerId)
+        }
     }
 
     private fun showPlayerDetail(playerDetail: PlayerDetail) {
