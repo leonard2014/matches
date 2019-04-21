@@ -1,5 +1,6 @@
 package com.leonard.matches.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -16,8 +17,8 @@ class PlayerViewModel(private val repository: Repository) : ViewModel() {
         data class Content(val detail: PlayerDetail) : ViewState()
     }
 
-    var viewState = MutableLiveData<PlayerViewModel.ViewState>().apply { value = PlayerViewModel.ViewState.Loading }
-        private set
+    private val _viewState = MutableLiveData<ViewState>().apply { value = PlayerViewModel.ViewState.Loading }
+    val viewState: LiveData<ViewState> = _viewState
 
     private var disposeBag = CompositeDisposable()
 
@@ -27,14 +28,14 @@ class PlayerViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun loadPlayerDetail(teamId: String, playerId: String) {
-        viewState.postValue(PlayerViewModel.ViewState.Loading)
+        _viewState.postValue(PlayerViewModel.ViewState.Loading)
         disposeBag += repository.getPlayerDetail(teamId, playerId)
             .subscribe(
                 { detail ->
-                    viewState.postValue(PlayerViewModel.ViewState.Content(detail))
+                    _viewState.postValue(PlayerViewModel.ViewState.Content(detail))
                 },
                 { error ->
-                    viewState.postValue(PlayerViewModel.ViewState.Error(error))
+                    _viewState.postValue(PlayerViewModel.ViewState.Error(error))
                 }
             )
     }

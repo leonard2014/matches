@@ -16,8 +16,8 @@ class MatchesViewModel(private val repository: Repository) : ViewModel() {
         data class Content(val matches: List<Match>) : ViewState()
     }
 
-    var viewState = MutableLiveData<ViewState>().apply { value = ViewState.Loading }
-        private set
+    private val _viewState = MutableLiveData<ViewState>().apply { value = ViewState.Loading }
+    val viewState: LiveData<ViewState> = _viewState
 
     private var disposeBag = CompositeDisposable()
 
@@ -27,18 +27,18 @@ class MatchesViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun loadMatches() {
-        viewState.postValue(ViewState.Loading)
+        _viewState.postValue(ViewState.Loading)
         disposeBag += repository.matches
             .subscribe(
                 { matches ->
                     if (!matches.isEmpty()) {
-                        viewState.postValue(ViewState.Content(matches))
+                        _viewState.postValue(ViewState.Content(matches))
                     } else {
-                        viewState.postValue(ViewState.Empty)
+                        _viewState.postValue(ViewState.Empty)
                     }
                 },
                 { error ->
-                    viewState.postValue(ViewState.Error(error))
+                    _viewState.postValue(ViewState.Error(error))
                 }
             )
     }
