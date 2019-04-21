@@ -26,7 +26,7 @@ class PlayerViewModel(private val repository: Repository) : ViewModel() {
         disposeBag.clear()
     }
 
-    fun getPlayerDetail(teamId: String, playerId: String) {
+    fun loadPlayerDetail(teamId: String, playerId: String) {
         viewState.postValue(PlayerViewModel.ViewState.Loading)
         disposeBag += repository.getPlayerDetail(teamId, playerId)
             .subscribe(

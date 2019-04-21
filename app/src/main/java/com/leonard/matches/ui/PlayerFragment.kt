@@ -15,6 +15,7 @@ import com.leonard.matches.R
 import com.leonard.matches.model.PlayerDetail
 import com.leonard.matches.repository.HEADSHOT_TEMPLATE
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.error_view.*
 import kotlinx.android.synthetic.main.player_fragment.*
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
@@ -62,6 +63,8 @@ class PlayerFragment : Fragment() {
             .placeholder(R.drawable.headshot_blank)
             .into(headshot)
 
+        retry.setOnClickListener { viewModel.loadPlayerDetail(teamId, playerId) }
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(PlayerViewModel::class.java)
         viewModel.viewState.observe(this, Observer { state ->
             multiStateView.viewState = when (state) {
@@ -77,7 +80,8 @@ class PlayerFragment : Fragment() {
                 showPlayerDetail(state.detail)
             }
         })
-        viewModel.getPlayerDetail(teamId, playerId)
+
+        viewModel.loadPlayerDetail(teamId, playerId)
     }
 
     private fun showPlayerDetail(playerDetail: PlayerDetail) {
